@@ -1,8 +1,8 @@
 <?php 
     include_once ("../lib/Session.php");
+    Session::checkAdminSession();
     include_once ("../lib/Database.php");
     include_once ("../helpers/Format.php");
-	Session::init();
 	$db  = new Database();
 	$fm  = new Format();
 ?>
@@ -34,6 +34,14 @@ header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 			<li><a href="users.php">Manage user</a></li>
 			<li><a href="quesadd.php">Add Ques</a></li>
 			<li><a href="queslist.php">Ques List</a></li>
+
+			<?php
+                if (isset($_GET['action']) && $_GET['action'] == "logout") {
+                    Session::destroy();
+                    header("Location: login.php");
+                }
+            ?>
+
 			<li><a href="?action=logout">Logout</a></li>
 		</ul>
 	 </div>
