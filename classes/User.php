@@ -49,5 +49,33 @@
 				return $msg;
 			}
 		}
+
+		public function enableUser($enable){
+			$query = "UPDATE tbl_user
+					  SET
+					  status = '0' 
+					  WHERE userId = '$enable' ";
+			$update = $this->db->update($query);
+			if ($update) {
+				$msg = "<span class='success'>User enabled!</span>";
+				return $msg;
+			}else{
+				$msg = "<span class='error'>User Not enabled!</span>";
+				return $msg;
+			}
+		}
+
+		public function removeUser($remove){
+			$query = "DELETE FROM tbl_user
+					  WHERE userId = '$remove' ";
+			$update = $this->db->delete($query);
+			if ($update) {
+				$msg = "<span class='success'>User removed!</span>";
+				return $msg;
+			}else{
+				$msg = "<span class='error'>User Not removed!</span>";
+				return $msg;
+			}
+		}
 	}
 ?>
