@@ -3,13 +3,21 @@
 	include_once ($filepath.'/inc/header.php');
 	include_once ($filepath.'/../classes/User.php');
 	$user = new User();
-
-	
 ?>	
 <?php
 	if (isset($_GET['dis'])) {
 		$disable = (int)$_GET['dis'];
 		$disableUser = $user->disableUser($disable);
+	}
+
+	if (isset($_GET['ena'])) {
+		$enable = (int)$_GET['ena'];
+		$enableUser = $user->enableUser($enable);
+	}
+
+	if (isset($_GET['rem'])) {
+		$remove = (int)$_GET['rem'];
+		$removeUser = $user->removeUser($remove);
 	}
 ?>
 
@@ -18,6 +26,12 @@
 <?php
 	if (isset($disableUser)) {
 		echo $disableUser;
+	}
+	if (isset($enableUser)) {
+		echo $enableUser;
+	}
+	if (isset($removeUser)) {
+		echo $removeUser;
 	}
 ?>
 <div class="manageuser">
