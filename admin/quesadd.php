@@ -31,6 +31,11 @@
 ?>
 <div class="main">
 <h1>Admin Panel - Add Question</h1>
+<?php
+	if (isset($addQ)) {
+		echo $addQ;
+	}
+?>
 <div class="adminpanel">
 	<form action="" method="post" accept-charset="utf-8">
 		<table class="tblone">
@@ -49,7 +54,7 @@
 				<tr>
 					<td>Question</td>
 					<td>:</td>
-					<td><input type="text" name="ques" value="" placeholder="Enter Question" required="required"></td>
+					<td><input type="text" name="ques" placeholder="Enter Question" required="required"></td>
 				</tr>
 
 				<tr>
