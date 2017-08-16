@@ -12,6 +12,15 @@
   min-height: 430px;
   padding: 20px;
 }
+.success{
+  color:green;
+  display: block;
+  padding-bottom: 5px;}
+.error {
+  color: red;
+  display: block;
+  padding-bottom: 5px;
+}
  p{margin:0}
 input[type="text"], input[type="password"] {
   border: 1px solid #ddd;
