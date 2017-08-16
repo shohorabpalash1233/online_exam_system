@@ -20,7 +20,7 @@
 
 
 
-		public function getAdminData($data){
+		public function dummyForUser($data){
 			$adminUser = $this->fm->validation($data['adminUser']);
 			$adminPass = $this->fm->validation($data['adminPass']);
 
