@@ -1,6 +1,8 @@
 <?php 
     $filepath = realpath(dirname(__FILE__));
 	include_once ($filepath.'/inc/header.php');
+	include_once ($filepath.'/../classes/Exam.php');
+	$exam = new Exam();
 ?>
 <style type="text/css" media="screen">
 	.adminpanel{
@@ -19,6 +21,14 @@
 		text-align: center;
 	}
 </style>	
+<?php
+	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+		$addQ = $exam->addQuestion($_POST);
+	}
+	//Get Total
+		$total 	= $exam->getTotalRows();
+		$next 	= $total+1;
+?>
 <div class="main">
 <h1>Admin Panel - Add Question</h1>
 <div class="adminpanel">
@@ -28,7 +38,13 @@
 				<tr>
 					<td>Question No.</td>
 					<td>:</td>
-					<td><input type="number" name="quesNo" value="" required="required"></td>
+					<td><input type="number" name="quesNo" value="
+						<?php
+							if (isset($next)) {
+								echo $next;;
+							}
+						?>
+					" required="required"></td>
 				</tr>
 				<tr>
 					<td>Question</td>
