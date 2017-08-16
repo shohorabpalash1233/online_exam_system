@@ -18,6 +18,45 @@
 			$this->fm = new Format();
 		}
 
+		public function addQuestion($data){
+			$quesNo = mysqli_real_escape_string($this->db->link, $data['quesNo']);
+			$ques = mysqli_real_escape_string($this->db->link, $data['ques']);
+
+			$ans = array();
+			$ans[1] = $data['ans1'];
+			$ans[2] = $data['ans2'];
+			$ans[3] = $data['ans3'];
+			$ans[4] = $data['ans4'];
+
+			$rightAns = $data['rightAns'];
+
+
+			$query = "INSERT INTO tbl_ques(quesNo, ques) VALUES ('$quesNo', 'ques')";
+			$insertRow = $this->db->insert($query);
+
+			if ($insertRow) {
+				foreach ($ans as $key => $answer) {
+					if ($answer != '') {
+						if ($rightAns == $key) {
+							$rquery = "INSERT INTO tbl_ans(quesNo, rightAns, ans) VALUES ('$quesNo', '1', '$answer')";
+							
+						}else{
+							$rquery = "INSERT INTO tbl_ans(quesNo, rightAns, ans) VALUES ('$quesNo', '0', '$answer')";
+							
+						}
+						$insertRow = $this->db->insert($rquery);
+						if ($insertRow) {
+							continue;
+						}else{
+							die('Error!!!');
+						}
+					}
+				}
+
+				$msg = "<span class='success'>Question added successfully</span>";
+			}
+		}
+
 		public function getQuestionByOrder(){
 			$query = "SELECT * FROM tbl_ques ORDER BY quesNo ASC";
 			$result = $this->db->select($query);
@@ -40,5 +79,14 @@
 			}
 			
 		}
+
+		public function getTotalRows(){
+			$query 		= "SELECT * FROM tbl_ques";
+			$getResult 	= $this->db->select($query);
+			$total 		= $getResult->num_rows;
+			return $total;
+		}
+
+
 	}
 ?>
