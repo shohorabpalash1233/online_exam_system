@@ -20,12 +20,42 @@
 
 
 
-		public function dummyForUser($data){
-			$adminUser = $this->fm->validation($data['adminUser']);
-			$adminPass = $this->fm->validation($data['adminPass']);
+		public function userRegistration($name, $username, $password, $email){
+			$name 		= $this->fm->validation($name);
+			$username 	= $this->fm->validation($username);
+			$password 	= $this->fm->validation($password);
+			$email 		= $this->fm->validation($email);
 
-			$adminUser = mysqli_real_escape_string($this->db->link, $adminUser);
-			$adminPass = mysqli_real_escape_string($this->db->link, md5($adminPass));
+			$name 		= mysqli_real_escape_string($this->db->link, $name);
+			$username 	= mysqli_real_escape_string($this->db->link, $username);
+			$password 	= mysqli_real_escape_string($this->db->link, md5($password));
+			$email 		= mysqli_real_escape_string($this->db->link, $email);
+
+			if ($name == '' || $username == '' || $password == '' || $email == '') {
+				echo "<span class='error'>Field Must Not Be Empty!</span>";
+				exit();
+			}else if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+				echo "<span class='error'>Invalid Email Address!</span>";
+				exit();
+			}else{
+				$checkQuery = "SELECT * FROM tbl_user WHERE email = '$email' ";
+				$chkResult = $this->db->select($checkQuery);
+				if ($chkResult != false) {
+					echo "<span class='error'>Email Address Already Exists!</span>";
+					exit();
+				}else{
+					$query = "INSERT INTO tbl_user(name, username, password, email) VALUES ('$name', '$username', 
+					'$password', '$email')";
+					$insertRow = $this->db->insert($query);
+					if ($insertRow) {
+						echo "<span class='success'>Registration Successful!</span>";
+						exit();
+					}else{
+						echo "<span class='error'>Error! Not Registered!</span>";
+						exit();
+					}
+				}
+			}
 
 		}
 
