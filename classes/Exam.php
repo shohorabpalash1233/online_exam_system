@@ -31,7 +31,7 @@
 			$rightAns = $data['rightAns'];
 
 
-			$query = "INSERT INTO tbl_ques(quesNo, ques) VALUES ('$quesNo', 'ques')";
+			$query = "INSERT INTO tbl_ques(quesNo, ques) VALUES ('$quesNo', '$ques')";
 			$insertRow = $this->db->insert($query);
 
 			if ($insertRow) {
@@ -54,6 +54,7 @@
 				}
 
 				$msg = "<span class='success'>Question added successfully</span>";
+				return $msg;
 			}
 		}
 
