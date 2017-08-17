@@ -18,4 +18,43 @@ $(function(){
 		});
 		return false;
 	});
+
+		//For User Login
+	$("#loginsubmit").click(function() {
+
+		var email 		= $("#email").val();
+		var password 	= $("#password").val();
+		
+		var dataString = 'email='+email+'&password='+password;
+
+		$.ajax({
+			type: 'POST',
+			url: "getlogin.php",
+			data: dataString,
+			success: function(data){
+				if ($.trim(data) == "empty") {
+
+					$(".empty").show();
+					$(".error").hide();
+					$(".disable").hide();
+
+				} else if ($.trim(data) == "disable") {
+
+					$(".empty").hide();
+					$(".error").hide();
+					$(".disable").show();
+
+				} else if ($.trim(data) == "error") {
+
+					$(".empty").hide();
+					$(".error").show();
+					$(".disable").hide();
+
+				} else {
+					window.location = "exam.php";
+				}
+			}
+		});
+		return false;
+	});
 });
