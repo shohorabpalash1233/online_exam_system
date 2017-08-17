@@ -4,6 +4,7 @@
 	*/
 
     $filepath = realpath(dirname(__FILE__));
+    include_once ($filepath.'/../lib/Session.php');
 	include_once ($filepath.'/../lib/Database.php');
 	include_once ($filepath.'/../helpers/Format.php');
 
@@ -57,6 +58,37 @@
 				}
 			}
 
+		}
+
+		public function userLogin($email, $password){
+			$password 	= $this->fm->validation($password);
+			$email 		= $this->fm->validation($email);
+
+			$password 	= mysqli_real_escape_string($this->db->link, $password);
+			$email 		= mysqli_real_escape_string($this->db->link, $email);
+			if ($email == '' || $password == '') {
+				echo "empty";
+				exit();
+			}else{
+				$query = "SELECT * FROM tbl_user WHERE email = '$email' AND password = '$password' ";
+				$result = $this->db->select($query);
+				if ($result != false) {
+					$value = $result->fetch_assoc();
+					if ($value['status'] == '1') {
+						echo "disabled";
+						exit();
+					}else{
+						Session::init();
+						Session::set('login', true);
+						Session::set('userId', $value['userId']);
+						Session::set('name', $value['name']);
+						Session::set('username', $value['username']);
+					}
+				}else{
+					echo "error";
+					exit();
+				}
+			}
 		}
 
 		public function getAllUser(){
