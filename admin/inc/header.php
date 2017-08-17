@@ -25,6 +25,14 @@ header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 	<link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
+
+			<?php
+                if (isset($_GET['action']) && $_GET['action'] == "logout") {
+                    Session::destroy();
+                    header("Location: login.php");
+                    exit();
+                }
+            ?>
 <div class="phpcoding">
 	<section class="headeroption"></section>
 		<section class="maincontent">
@@ -35,12 +43,6 @@ header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 			<li><a href="quesadd.php">Add Ques</a></li>
 			<li><a href="queslist.php">Ques List</a></li>
 
-			<?php
-                if (isset($_GET['action']) && $_GET['action'] == "logout") {
-                    Session::destroy();
-                    header("Location: login.php");
-                }
-            ?>
 
 			<li><a href="?action=logout">Logout</a></li>
 		</ul>
