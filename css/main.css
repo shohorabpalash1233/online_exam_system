@@ -16,7 +16,7 @@
   color:green;
   display: block;
   padding-bottom: 5px;}
-.error {
+.error, .empty, .disable {
   color: red;
   display: block;
   padding-bottom: 5px;
@@ -72,7 +72,7 @@ input[type="submit"] {
   border: 1px solid #d3d3d3;
   border-radius: 4px;
   float: left;
-  min-height: 225px;
+  min-height: 245px;
   padding: 20px;
   width: 357px;
 }
