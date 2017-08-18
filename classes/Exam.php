@@ -88,6 +88,24 @@
 			return $total;
 		}
 
+		public function getQuestion(){
+			$query 		= "SELECT * FROM tbl_ques";
+			$getData 	= $this->db->select($query);
+			$result 	= $getData->fetch_assoc();
+			return $result;
+		}
 
+		public function getQuestionByNumber($num){
+			$query 		= "SELECT * FROM tbl_ques WHERE quesNo = '$num' ";
+			$getData 	= $this->db->select($query);
+			$result 	= $getData->fetch_assoc();
+			return $result;
+		}
+
+		public function getAnswer($number){
+			$query 		= "SELECT * FROM tbl_ans WHERE quesNo = '$number' ";
+			$getData 	= $this->db->select($query);
+			return $getData;
+		}
 	}
 ?>
