@@ -91,6 +91,12 @@
 			}
 		}
 
+		public function getUserData($userId){
+			$query = "SELECT * FROM tbl_user WHERE userId = '$userId' ";
+			$result = $this->db->select($query);
+			return $result;
+		}
+
 		public function getAllUser(){
 			$query = "SELECT * FROM tbl_user ORDER BY userId DESC";
 			$result = $this->db->select($query);
@@ -136,6 +142,32 @@
 				return $msg;
 			}else{
 				$msg = "<span class='error'>User Not removed!</span>";
+				return $msg;
+			}
+		}
+
+		public function updateUserData($userId, $data){
+			$name 		= $this->fm->validation($data['name']);
+			$username 	= $this->fm->validation($data['username']);
+			$email 		= $this->fm->validation($data['email']);
+
+			$name 		= mysqli_real_escape_string($this->db->link, $name);
+			$username 	= mysqli_real_escape_string($this->db->link, $username);
+			$email 		= mysqli_real_escape_string($this->db->link, $email);
+
+			$query = "UPDATE tbl_user
+					  SET
+					  name = '$name',
+					  username = '$username',
+					  email = '$email'
+					  WHERE userId = '$userId' ";
+
+			$update = $this->db->update($query);
+			if ($update) {
+				$msg = "<span class='success'>User Data Updated!</span>";
+				return $msg;
+			}else{
+				$msg = "<span class='error'>User Data Updated!</span>";
 				return $msg;
 			}
 		}
