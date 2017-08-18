@@ -48,6 +48,7 @@
 			</tr>
 			
 		</table>
+		</form>
 </div>
  </div>
 <?php include 'inc/footer.php'; ?>
