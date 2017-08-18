@@ -1,5 +1,5 @@
-<?php include 'inc/header.php'; ?>
-<?php
+<?php include 'inc/header.php';
+
 	Session::checkSession();
 	$userId = Session::get("userId");
 ?>
